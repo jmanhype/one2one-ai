@@ -34,7 +34,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
     });
 
     try {
-      // Add transceivers for audio and video
+      // Add transceivers for audio and videos
       pcRef.current.addTransceiver('audio', { direction: 'recvonly' });
       pcRef.current.addTransceiver('video', { direction: 'recvonly' });
 
