@@ -1,113 +1,98 @@
 # One2One AI
 
-One2One AI is an innovative project that combines a React-based frontend with a Python backend to create an interactive AI-driven experience.
+One2One AI is an innovative digital platform dedicated to delivering sophisticated chatbot services to clients with an intrinsic desire for educational and motivational guidance. Pioneering a seamless blend of textual and auditory interactions, it pushes the boundaries of traditional chatbot platforms.
 
-## Project Structure
+## Features
 
-The project is organized into two main directories:
-- `voice`: Contains the frontend React application
-- `metahuman-stream`: Contains the backend Python server
+- AI-powered chatbot development services using ChatGPT-4
+- Custom dataset integration for personalized chatbots
+- Multi-content support for context-aware interactions
+- React-based frontend with TypeScript for robust development
+- Vite for fast development and optimized building
+- Tailwind CSS for responsive and customizable design
 
 ## Getting Started
 
-To get started with One2One AI, follow these steps:
+### Prerequisites
+
+- Node.js (version 14 or later)
+- npm or yarn
+
+### Installation
 
 1. Clone the repository:
-   ```
-   git clone https://github.com/DagimN/one2one.git
-   cd one2one
+   ```bash
+   git clone https://github.com/jmanhype/one2one-ai.git
+   cd one2one-ai
    ```
 
-2. Set up the frontend:
-   ```
-   cd voice
+2. Install dependencies:
+   ```bash
    npm install
    ```
 
-3. Set up the backend:
-   ```
-   cd ../metahuman-stream
-   pip install -r requirements.txt
-   ```
+### Development
 
-4. Start the frontend development server:
-   ```
-   cd ../voice
-   npm run dev
-   ```
+To start the development server:
+```bash
+npm run dev
+```
 
-5. Start the backend server:
-   ```
-   cd ../metahuman-stream
-   python app.py
-   ```
+### Building for Production
 
-Note: Ensure you have both Node.js and Python installed on your system before starting.
+To create a production build:
+```bash
+npm run build
+```
 
-## Frontend (voice)
+## Project Structure
 
-The frontend is a React application built with Vite. It uses TypeScript and includes various dependencies for UI components, routing, and API interactions.
+- `src/`: Source files
+  - `components/`: Reusable React components
+  - `pages/`: Individual page components
+  - `constants/`: Constant values and configuration
+  - `assets/`: Static assets like images
+- `public/`: Public static files
+- `dist/`: Production build output
 
-Key dependencies include:
-- React
-- React Router
-- Axios
-- Formik
-- React Player
-- Video.js
+## Key Components
 
-For a full list of dependencies and development tools, refer to the `package.json` file in the `voice` directory.
+- **Dashboard**: Manage and view chatbots
+- **LiveDemo**: Interactive chatbot demonstration
+- **Agreements**: Terms of service and legal information
+- **AboutUs**: Information about One2One AI and its founder
 
-## Backend (metahuman-stream)
+## Technologies Used
 
-The backend is a Python server, with `app.py` as the main entry point. It handles the server-side logic and AI interactions.
+- React 18
+- TypeScript
+- Vite 4
+- Tailwind CSS
+- Axios for API requests
+- React Router for navigation
+- React Toastify for notifications
 
-## Development
+## API Integration
 
-For frontend development, you can use the following npm scripts:
-- `npm run dev`: Start the development server
-- `npm run build`: Build the production-ready application
-- `npm run lint`: Run ESLint for code quality checks
-
-For backend development, ensure you have all the required Python packages installed and run the `app.py` file.
+The application integrates with a backend API. The base URL for API requests is defined in `src/constants/index.ts`.
 
 ## Contributing
 
-Contributions to One2One AI are welcome. Please ensure you follow the existing code style and structure when submitting pull requests.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-[Include license information here]
+This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any queries or support, please contact:
-Straughter Guthrie - [GitHub Profile](https://github.com/jmanhype)
-=======
-# React + TypeScript + Vite
+For any inquiries, please contact:
+- **Phone**: +91-7798794199
+- **Email**: ajinkya@one2one.ai
+- **Address**: P/NO J-13, MAGH SECTOR, BHUJBAL FARM, CIDCO, Cidco Colony (Nashik), Nashik, Maharashtra 422009, India
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Acknowledgments
 
-Currently, two official plugins are available:
+- **Ajinkya Dev** - Founder and CEO
+- All contributors and supporters of the One2One AI project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
