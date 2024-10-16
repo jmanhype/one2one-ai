@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # One2One AI
 
 One2One AI is an innovative project that combines a React-based frontend with a Python backend to create an interactive AI-driven experience.
@@ -112,4 +111,3 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
->>>>>>> e703d52b2c21065041e72823833195983dfad643
