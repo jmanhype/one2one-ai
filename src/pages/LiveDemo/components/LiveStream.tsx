@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './LiveStream.module.css';
 
 interface LiveStreamProps {
@@ -6,7 +6,6 @@ interface LiveStreamProps {
 }
 
 const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string>('');
   const [connectionState, setConnectionState] = useState<string>('');
@@ -35,7 +34,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
     });
 
     try {
-      // Add transceivers for audio and video
+      // Add transceivers for audio and videos
       pcRef.current.addTransceiver('audio', { direction: 'recvonly' });
       pcRef.current.addTransceiver('video', { direction: 'recvonly' });
 
@@ -74,12 +73,9 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
 
       await pcRef.current.setRemoteDescription(new RTCSessionDescription(answer));
       console.log('Set remote description successfully');
-
-      setIsLoading(false);
     } catch (error) {
       console.error('Streaming error:', error);
       setError(`Failed to start streaming: ${error instanceof Error ? error.message : String(error)}`);
-      setIsLoading(false);
     }
   };
 
