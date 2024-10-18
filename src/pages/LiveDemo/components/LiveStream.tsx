@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styles from './LiveStream.module.css';
-import { BASE_URL, API_URL } from '../../../constants';
+import { API_URL } from '../../../constants';
 
 interface LiveStreamProps {
   streamUrl: string;
