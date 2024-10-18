@@ -49,7 +49,8 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
         type: pcRef.current.localDescription?.type,
       });
 
-      const response = await fetch('http://213.173.110.201:20102/offer', {
+      // Use the streamUrl prop instead of a hardcoded URL
+      const response = await fetch(streamUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
