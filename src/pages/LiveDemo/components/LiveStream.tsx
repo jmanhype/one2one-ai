@@ -1,11 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './LiveStream.module.css';
+import { BASE_URL } from '../../../constants';
 
 interface LiveStreamProps {
   streamUrl: string;
 }
 
 const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string>('');
   const [connectionState, setConnectionState] = useState<string>('');
@@ -34,7 +36,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
     });
 
     try {
-      // Add transceivers for audio and videos
+      // Add transceivers for audio and video
       pcRef.current.addTransceiver('audio', { direction: 'recvonly' });
       pcRef.current.addTransceiver('video', { direction: 'recvonly' });
 
@@ -73,9 +75,12 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
 
       await pcRef.current.setRemoteDescription(new RTCSessionDescription(answer));
       console.log('Set remote description successfully');
+
+      setIsLoading(false);
     } catch (error) {
       console.error('Streaming error:', error);
       setError(`Failed to start streaming: ${error instanceof Error ? error.message : String(error)}`);
+      setIsLoading(false);
     }
   };
 
@@ -91,7 +96,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://${window.location.hostname}:8010/human`, {
+      const response = await fetch(`${BASE_URL}/human`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
