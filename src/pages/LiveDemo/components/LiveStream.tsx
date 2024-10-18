@@ -49,7 +49,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
         type: pcRef.current.localDescription?.type,
       });
 
-      const response = await fetch(streamUrl, {
+      const response = await fetch(`${BASE_URL}/offer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
