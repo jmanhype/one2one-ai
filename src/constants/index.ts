@@ -16,3 +16,4 @@ export const WHEP_URL = `http://${HOST}:${WHEP_PORT}/rtc/v1/whep/?app=live&strea
 export const RTMP_URL = `rtmp://${HOST}:${RTMP_PORT}/live/livestream`;
 export const ADMIN_URL = ADMIN_PROD_URL;
 export const MIN_PASSWORD_LENGTH = 8;
+export const API_PORT = '38888';  // Maps to internal port 8010
