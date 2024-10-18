@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './LiveStream.module.css';
 import { BASE_URL } from '../../../constants';
 
@@ -153,6 +153,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
         <h2>Media</h2>
         <video ref={videoRef} autoPlay playsInline style={{ width: '600px' }} />
       </div>
+      {isLoading && <p>Loading...</p>} {/* Added loading indicator */}
     </div>
   );
 };
