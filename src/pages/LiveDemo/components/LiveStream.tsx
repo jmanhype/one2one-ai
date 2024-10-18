@@ -49,7 +49,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
         type: pcRef.current.localDescription?.type,
       });
 
-      const response = await fetch(`${BASE_URL}/offer`, {
+      const response = await fetch(streamUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -153,7 +153,6 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
         <h2>Media</h2>
         <video ref={videoRef} autoPlay playsInline style={{ width: '600px' }} />
       </div>
-      {isLoading && <p>Loading...</p>} {/* Added loading indicator */}
     </div>
   );
 };
