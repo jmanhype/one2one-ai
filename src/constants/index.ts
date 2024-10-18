@@ -9,10 +9,10 @@ export const API_PORT = '38888';  // Maps to internal port 8010
 const RTMP_PORT = '38887'; // Maps to internal port 1935
 const WHEP_PORT = '38889'; // Maps to internal port 1985
 
-export const BASE_URL = `http://${HOST}`;
-export const API_URL = `http://${HOST}:${API_PORT}`;
+export const BASE_URL = `https://${HOST}`;
+export const API_URL = `https://${HOST}:${API_PORT}`;
 export const WEBSOCKET_URL = `ws://${HOST}:${API_PORT}/humanecho`;
-export const WHEP_URL = `http://${HOST}:${WHEP_PORT}/rtc/v1/whep/?app=live&stream=livestream`;
+export const WHEP_URL = `https://${HOST}:${WHEP_PORT}/rtc/v1/whep/?app=live&stream=livestream`;
 export const RTMP_URL = `rtmp://${HOST}:${RTMP_PORT}/live/livestream`;
 export const ADMIN_URL = ADMIN_PROD_URL;
 export const MIN_PASSWORD_LENGTH = 8;
