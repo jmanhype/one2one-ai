@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic';
 import Header from "../../components/Header";
-import { BASE_URL } from '../../constants';
+import { WHEP_URL } from '../../constants';
 
 const LiveStream = dynamic(() => import("./components/LiveStream"), { ssr: false });
 
 const LiveDemo = () => {
-  const streamUrl = `${BASE_URL}:8010/offer`;
+  const streamUrl = WHEP_URL;
 
   console.log('Stream URL in LiveDemo:', streamUrl);
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styles from './LiveStream.module.css';
-import { BASE_URL } from '../../../constants';
+import { BASE_URL, API_URL } from '../../../constants';
 
 interface LiveStreamProps {
   streamUrl: string;
@@ -96,7 +96,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${BASE_URL}:8010/human`, {
+      const response = await fetch(`${API_URL}/human`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
