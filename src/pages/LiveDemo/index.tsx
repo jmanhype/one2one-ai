@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import Header from "../../components/Header";
-import { BASE_URL, API_PORT } from '../../constants';
+import { BASE_URL, API_PORT, WHEP_URL } from '../../constants';
 
 const LiveStream = dynamic(() => import("./components/LiveStream"), { ssr: false });
 
