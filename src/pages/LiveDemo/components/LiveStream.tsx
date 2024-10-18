@@ -96,7 +96,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${BASE_URL}/human`, {
+      const response = await fetch(`${BASE_URL}:8010/human`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
