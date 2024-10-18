@@ -5,7 +5,7 @@ import { BASE_URL } from '../../constants';
 const LiveStream = dynamic(() => import("./components/LiveStream"), { ssr: false });
 
 const LiveDemo = () => {
-  const streamUrl = `${BASE_URL}:8010/offer`;
+  const streamUrl = `${BASE_URL}:1985/rtc/v1/whep/?app=live&stream=livestream`;
 
   console.log('Stream URL in LiveDemo:', streamUrl);
 
