@@ -7,7 +7,7 @@ interface LiveStreamProps {
 }
 
 const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [_isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string>('');
   const [connectionState, setConnectionState] = useState<string>('');
