@@ -5,7 +5,7 @@ const ADMIN_PROD_URL = "https://admin.one2one.ai";
  //"https://enlighten-me-api-env.eba-gcie6i22.ap-south-1.elasticbeanstalk.com";
 
 const HOST = '213.173.110.201';
-export const API_PORT = '20102';  // Updated external port mapping
+export const API_PORT = '20100';  // Updated external port mapping
 const RTMP_PORT = '38887'; // Maps to internal port 1935
 const WHEP_PORT = '38889'; // Maps to internal port 1985
 
