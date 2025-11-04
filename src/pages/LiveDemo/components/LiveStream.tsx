@@ -25,7 +25,6 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
     pcRef.current.addEventListener('connectionstatechange', () => {
       if (pcRef.current) {
         setConnectionState(pcRef.current.connectionState);
-        console.log('Connection state changed:', pcRef.current.connectionState);
       }
     });
 
@@ -41,13 +40,7 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
       pcRef.current.addTransceiver('video', { direction: 'recvonly' });
 
       const offer = await pcRef.current.createOffer();
-      console.log('Created offer:', offer);
       await pcRef.current.setLocalDescription(offer);
-      
-      console.log('Sending offer to server:', {
-        sdp: pcRef.current.localDescription?.sdp,
-        type: pcRef.current.localDescription?.type,
-      });
 
       // Use the streamUrl prop instead of a hardcoded URL
       const response = await fetch(streamUrl, {
@@ -63,23 +56,19 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Server error response:', errorText);
         throw new Error(`Failed to send offer: ${response.status} ${response.statusText}. Server response: ${errorText}`);
       }
 
       const answer = await response.json();
-      console.log('Received answer from server:', answer);
 
       if (!answer.sdp || !answer.type) {
         throw new Error('Invalid answer received from server');
       }
 
       await pcRef.current.setRemoteDescription(new RTCSessionDescription(answer));
-      console.log('Set remote description successfully');
 
       setIsLoading(false);
     } catch (error) {
-      console.error('Streaming error:', error);
       setError(`Failed to start streaming: ${error instanceof Error ? error.message : String(error)}`);
       setIsLoading(false);
     }
@@ -91,7 +80,6 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
       pcRef.current = null;
     }
     setConnectionState('');
-    console.log('Streaming stopped');
   };
 
   const sendMessage = async (e: React.FormEvent) => {
@@ -113,10 +101,8 @@ const LiveStream: React.FC<LiveStreamProps> = ({ streamUrl }) => {
         throw new Error('Failed to send message');
       }
 
-      console.log('Message sent successfully');
       setMessage('');
     } catch (error) {
-      console.error('Error sending message:', error);
       setError('Error sending message');
     }
   };

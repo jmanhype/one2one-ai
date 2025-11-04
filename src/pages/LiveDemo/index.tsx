@@ -7,8 +7,6 @@ const LiveStream = dynamic(() => import("./components/LiveStream"), { ssr: false
 const LiveDemo = () => {
   const streamUrl = `${BASE_URL}:${API_PORT}/offer`;
 
-  console.log('Stream URL in LiveDemo:', streamUrl);
-
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#121212', color: 'white', padding: '20px' }}>
       <Header />
