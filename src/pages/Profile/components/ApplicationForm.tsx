@@ -54,7 +54,6 @@ const ApplicationForm = ({
               { setSubmitting }
             ) => {
               //TODO: Send Application form
-              console.log(values);
               setSubmitting(false);
             }}
           >

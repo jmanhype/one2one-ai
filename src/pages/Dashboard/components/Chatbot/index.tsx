@@ -47,53 +47,64 @@ const Chatbot = ({
   const scrollToBottomRef = useRef<any>(null);
 
   const fetchMessages = async () => {
-    const response = await axios.get(
-      `${BASE_URL}/chatbot/messages?projectId=${conversation?.project_id}&sessionId=${conversation?.session_id}`,
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    );
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/chatbot/messages?projectId=${conversation?.project_id}&sessionId=${conversation?.session_id}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
 
-    if (response.status === 200) {
-      setMessages(response.data.messages);
+      if (response.status === 200) {
+        setMessages(response.data.messages);
+      }
+    } catch (error) {
+      notifyError("Failed to fetch messages. Please try again.");
+      console.error("Error fetching messages:", error);
     }
   };
 
   const sendPrompt = async () => {
-    const response = await axios.post(
-      `${BASE_URL}/chatbot/prompt`,
-      {
-        chatbotId,
-        sentPrompt,
-        voiceId,
-        projectId: conversation?.project_id,
-        sessionId: conversation?.session_id,
-      },
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/chatbot/prompt`,
+        {
+          chatbotId,
+          sentPrompt,
+          voiceId,
+          projectId: conversation?.project_id,
+          sessionId: conversation?.session_id,
         },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data["statusCode"] === 200) {
+        if (messages)
+          setMessages([
+            ...messages,
+            { ...response.data.message, audioBase64: response.data.audio },
+          ]);
+        else
+          setMessages([
+            { ...response.data.response, audioBase64: response.data.audio },
+          ]);
+
+        setIsSending(false);
+      } else {
+        setIsSending(false);
+        notifyError(response.data["message"]);
       }
-    );
-
-    if (response.data["statusCode"] === 200) {
-      if (messages)
-        setMessages([
-          ...messages,
-          { ...response.data.message, audioBase64: response.data.audio },
-        ]);
-      else
-        setMessages([
-          { ...response.data.response, audioBase64: response.data.audio },
-        ]);
-
+    } catch (error) {
       setIsSending(false);
-    } else {
-      setIsSending(false);
-      notifyError(response.data["message"]);
+      notifyError("Failed to send message. Please check your connection.");
+      console.error("Error sending prompt:", error);
     }
 
     setSentPrompt(undefined);
@@ -101,41 +112,52 @@ const Chatbot = ({
   };
 
   const fetchConversations = async () => {
-    const token = localStorage.getItem("access_token");
-    const response = await axios.get(
-      `${BASE_URL}/chatbot/conversations?projectId=${projectId}&token=${token}`,
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    );
-
-    if (response.status === 200) {
-      const date = new Date();
-      setIsCreating(true);
-      createConversation(
-        `Chat ${response.data.conversations.length + 1} ${
-          date.getMonth() + 1
-        }/${date.getDate()}/${date.getFullYear()}`,
-        response.data.conversations
+    try {
+      const token = localStorage.getItem("access_token");
+      const response = await axios.get(
+        `${BASE_URL}/chatbot/conversations?projectId=${projectId}&token=${token}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
+
+      if (response.status === 200) {
+        const date = new Date();
+        setIsCreating(true);
+        createConversation(
+          `Chat ${response.data.conversations.length + 1} ${
+            date.getMonth() + 1
+          }/${date.getDate()}/${date.getFullYear()}`,
+          response.data.conversations
+        );
+      }
+    } catch (error) {
+      setIsCreating(false);
+      notifyError("Failed to load conversations. Please refresh the page.");
+      console.error("Error fetching conversations:", error);
     }
   };
 
   const deleteConversation = async () => {
-    const token = localStorage.getItem("access_token");
-    const response = await axios.delete(
-      `${BASE_URL}/chatbot/conversation?projectId=${conversation?.project_id}&sessionId=${conversation?.session_id}&token=${token}`
-    );
-    if (response.data["statusCode"] === 200) {
-      const updatedConversations = conversations.filter(
-        (prev_conversation) => prev_conversation.id !== conversation?.id
+    try {
+      const token = localStorage.getItem("access_token");
+      const response = await axios.delete(
+        `${BASE_URL}/chatbot/conversation?projectId=${conversation?.project_id}&sessionId=${conversation?.session_id}&token=${token}`
       );
-      setConversations(updatedConversations);
-      setConversation(updatedConversations[updatedConversations.length - 1]);
-      notifyMessage(response.data["message"]);
-    } else notifyError(response.data["message"]);
+      if (response.data["statusCode"] === 200) {
+        const updatedConversations = conversations.filter(
+          (prev_conversation) => prev_conversation.id !== conversation?.id
+        );
+        setConversations(updatedConversations);
+        setConversation(updatedConversations[updatedConversations.length - 1]);
+        notifyMessage(response.data["message"]);
+      } else notifyError(response.data["message"]);
+    } catch (error) {
+      notifyError("Failed to delete conversation. Please try again.");
+      console.error("Error deleting conversation:", error);
+    }
     setIsDeleting(false);
   };
 
@@ -143,24 +165,29 @@ const Chatbot = ({
     name: string,
     initialConversations?: []
   ) => {
-    const token = localStorage.getItem("access_token");
-    const response = await axios.post(`${BASE_URL}/chatbot/conversation`, {
-      projectId,
-      name,
-      token,
-    });
+    try {
+      const token = localStorage.getItem("access_token");
+      const response = await axios.post(`${BASE_URL}/chatbot/conversation`, {
+        projectId,
+        name,
+        token,
+      });
 
-    if (response.data["statusCode"] === 200) {
-      if (!initialConversations)
-        setConversations([...conversations, response.data["conversation"]]);
-      else
-        setConversations([
-          ...initialConversations,
-          response.data["conversation"],
-        ]);
-      setConversation(response.data["conversation"]);
-      notifyMessage(response.data["message"]);
-    } else notifyError(response.data["message"]);
+      if (response.data["statusCode"] === 200) {
+        if (!initialConversations)
+          setConversations([...conversations, response.data["conversation"]]);
+        else
+          setConversations([
+            ...initialConversations,
+            response.data["conversation"],
+          ]);
+        setConversation(response.data["conversation"]);
+        notifyMessage(response.data["message"]);
+      } else notifyError(response.data["message"]);
+    } catch (error) {
+      notifyError("Failed to create conversation. Please try again.");
+      console.error("Error creating conversation:", error);
+    }
     setIsCreating(false);
   };
 
